@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>fcoo.dk - leaflet-popup-extensions - Demo</title>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />	
+  <link rel="stylesheet" href="../dist/leaflet.css" />
+  <link  href="../dist/leaflet-popup-extensions.css" rel="stylesheet">	
+  <script src="../dist/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@latest/dist/leaflet-src.js"></script>
+</head>
+
+<body>
+	<div id="map" style="width: 600px; height: 400px"></div>
+
+	<script src="../dist/leaflet-popup-extensions.js"></script>
+	<script>
+		function addMarker(onClickObj){
+			L.marker( onClickObj.latLng )
+				.addTo( onClickObj.map )
+				.bindPopup( onClickObj.latLng.toString(4), 
+                            { 
+                              icon:'map-marker ', 
+                              header:'Marker', 
+                              buttonRemove: false//true
+                            }
+                          );
+			onClickObj.popup._close();
+		}		
+		
+		var map = L.map('map').setView([55.7502833, 37.61983545], 13);
+		L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { attribution: "Map &copy; <a href=\'http://openstreetmap.org\'>OpenStreetMap</a> | Tiles &copy; <a href='http://hot.openstreetmap.org\'>Humanitarian OSM Team</a>"
+      }).addTo(map);
+
+		map.on('click', function(e){
+			var popup = L.popup({
+				maxWidth	     : 200,
+				header		     : 'This is a very long header and it should be to long',
+				buttonClose	     : false,//true,
+//Not implemented				buttons		    : [{ icon:'map-marker ', text:'Add marker', onClick: addMarker}],
+				buttonHorizontal : false,
+
+                getContent: function(popup){ 
+		    	    var content = popup.getLatLng() + '<br>',
+	    			    lines = 1 + Math.floor(Math.random()*10);
+                    for (var i=0; i<lines; i++ ){
+                        content += 'line '+i+'<br>';
+                    }
+                    //return content + 'This is a random<br>number '+Math.floor(Math.random()*1000000); 
+                    var result = $('<div>' + content + 'This is a random<br>number '+Math.floor(Math.random()*1000000) +'</div>'); 
+                    result.attr('data-niels', 'skide godt');
+                    return result[0];
+    		    }
+			});
+
+			popup.setLatLng(e.latlng).openOn(map);
+		});
+
+	</script>
+</body>
+</html>

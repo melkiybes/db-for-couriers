@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200"
+   height="199.7951"
+   id="svg147969"
+   version="1.1"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Moskwa_Metro_Line_1.svg">
+  <defs
+     id="defs147971" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.4251554"
+     inkscape:cx="127.53769"
+     inkscape:cy="96.811097"
+     inkscape:current-layer="g282"
+     inkscape:document-units="px"
+     showgrid="false"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-nodes="true"
+     inkscape:bbox-paths="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="true">
+    <sodipodi:guide
+       orientation="1,0"
+       position="0,-8.4852883"
+       id="guide148130"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="270.11479,-6.8148831e-006"
+       id="guide148132"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="200,-6.8148831e-006"
+       id="guide148134"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata147974">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     transform="translate(-1.0234375,1.4324365)">
+    <g
+       id="g2991">
+      <g
+         transform="matrix(20.489704,0,0,-20.489704,1.0234375,98.557319)"
+         id="g282">
+        <path
+           id="path284"
+           style="fill:#ef161e;fill-opacity:1;fill-rule:nonzero;stroke:none"
+           d="m 0,0 c 0,-2.693 2.178,-4.871 4.89,-4.871 2.682,0 4.871,2.178 4.871,4.871 0,2.702 -2.189,4.88 -4.871,4.88 C 2.178,4.88 0,2.702 0,0 m 3.449,-2.471 0,0.838 1.058,0 0,3.327 -0.968,0 0,0.837 1.855,0 0,-4.164 1.14,0 -0.302,-0.838 -2.783,0 z"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         transform="translate(1.0234375,-1.4324365)"
+         inkscape:connector-curvature="0"
+         id="path2989"
+         d="m 70.705698,141.98895 0,-8.48581 10.871767,0 10.871767,0 0,-34.117906 0,-34.117902 -9.899495,0 -9.899495,0 0,-8.485282 0,-8.485281 18.915106,0 18.915102,0 0,42.603184 0,42.603187 11.59804,0 11.59804,0 -0.10113,0.39774 c -0.0556,0.21876 -1.40577,4.01725 -3.00031,8.44109 l -2.89918,8.04334 -28.485106,0.0447 -28.485106,0.0447 0,-8.48582 z"
+         style="fill:#ffffff;fill-opacity:1" />
+    </g>
+  </g>
+</svg>
