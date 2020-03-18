@@ -1,4 +1,4 @@
-L.Control.Watermark = L.Control.extend({
+L.Control.Card = L.Control.extend({
   onAdd: function(map) {
     var _C = L.DomUtil.create("div");
 
@@ -56,7 +56,7 @@ L.Control.Watermark = L.Control.extend({
   }
 });
 
-L.control.watermark = function(opts) {
+L.control.card = function(opts) {
   return new L.Control.Watermark(opts);
 };
 

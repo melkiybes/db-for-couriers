@@ -87,7 +87,7 @@
 <script>
  	 var card_template = $("#card_template");
 	  var map = L.map('map').setView([55.7502833, 37.61983545], 11);
-      L.control.watermark({ position: 'topright' }).addTo(map);
+      L.control.card({ position: 'topright' }).addTo(map);
       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { attribution: "Map &copy; <a href=\'http://openstreetmap.org\'>OpenStreetMap</a> | Tiles &copy; <a href='http://hot.openstreetmap.org\'>Humanitarian OSM Team</a> | Icons made by <a href='https://www.flaticon.com/authors/freepik' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>"
       }).addTo(map);
 	
