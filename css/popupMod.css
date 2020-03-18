@@ -1,0 +1,117 @@
+.leaflet-popup-useraction-buttons,
+.leaflet-popup-input-actions{
+   display: flex;
+   justify-content: space-between;
+   padding: 13px 19px;
+}
+
+a.leaflet-popup-remove-button,
+a.leaflet-popup-edit-button,
+a.leaflet-popup-input-cancel,
+a.leaflet-popup-input-save{
+   border-bottom: none;
+   text-decoration: none;
+}
+a.leaflet-popup-edit-button,
+a.leaflet-popup-input-save{
+   margin-right: auto;
+   text-align: left;
+}
+a.leaflet-popup-remove-button:hover,
+a.leaflet-popup-edit-button:hover,
+a.leaflet-popup-input-cancel:hover,
+a.leaflet-popup-input-save:hover{
+   color: black;
+   text-decoration: underline;
+   cursor: pointer;
+   text-decoration: none;
+   transition: all ease 0.3s;
+}
+
+.leaflet-popup-input{
+   border: 1px solid lightgrey;
+   min-width: 160px;
+   margin: 19px 19px 0px 19px;
+   padding: 5px;
+}
+.leaflet-popup-input:focus{
+   outline: 2px solid #60b7da;
+   border: 1px solid #60b7da;
+}
+
+.leaflet-popup-input-ruler{
+   position: fixed;
+   top: -100px;
+   visibility: hidden;
+   font: 1rem "Helvetica Neue", Arial, Helvetica, sans-serif;
+   background-color: lightgrey;
+}
+
+a.leaflet-popup-remove-button img,
+a.leaflet-popup-edit-button img{
+    max-height: 16px;
+    margin: 0px 5px 0px 0px;
+    vertical-align: middle;
+}
+
+a.leaflet-popup-remove-button span,
+a.leaflet-popup-edit-button span,
+a.leaflet-popup-input-cancel,
+a.leaflet-popup-input-save{
+    font-weight: bold;
+    vertical-align: middle;
+    transition: all ease 0.3s;
+}
+
+.edit-icon{
+    color: black;
+    padding: 0 0 0 21px;
+    background-image: url(../imgs/edit-icon.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 16px;
+}
+
+.edit-icon::before{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    width: 130px;
+    height: 30px;
+    background: rgb(0, 120, 168);
+    mix-blend-mode: screen;
+    transition: all ease 0.3s;
+}
+
+.edit-icon:hover::before{
+    background: black;
+    transition: all ease 0.3s;
+}
+.remove-icon{
+    color: black;
+    padding: 0 0 0 21px;
+    background-image: url(../imgs/remove-icon.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 16px;
+}
+
+.remove-icon::before{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    width: 115px;
+    height: 30px;
+    background: #ce1414;
+    mix-blend-mode: screen;
+    transition: all ease 0.3s;
+}
+
+.remove-icon:hover::before{
+    background: black;
+    transition: all ease 0.3s;
+}

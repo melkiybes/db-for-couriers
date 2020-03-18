@@ -1,0 +1,50 @@
+.add-card{
+	font-family: 'Nunito', sans-serif;
+	font-weight: bold;
+	text-indent: 1px;
+	font-size: 1.1rem;
+	border: 2px solid rgba(0,0,0,0.3);
+	border-radius: 4px;
+	background-color: #fff;
+	height: 30px;
+	display: block;
+	text-align: left;
+	color: black;
+	margin-bottom: 3px;
+  box-sizing:border-box;
+	cursor: pointer;
+	padding-left: 3px;
+	padding-bottom: 2px;
+	line-height: 25px;
+}
+.add-card img{
+    color: black;
+    padding: 0;
+    padding-right: 3px;
+    filter: invert(28%) sepia(91%) saturate(1456%) hue-rotate(172deg) brightness(95%) contrast(103%);
+}
+.add-card div:hover {
+	filter:none;
+}
+.add-card{
+	width: 100%;
+	z-index: 1052;
+    vertical-align: middle;
+}
+.add-card img{
+	user-select: none;
+	text-align: center;
+	vertical-align: middle;
+    width: 18px;
+    height: 18px;
+}
+input.add-card{
+	width: 0.1px;
+	visibility: hidden;
+  margin-bottom: -26px;
+}
+label.add-card{
+    vertical-align: middle;
+    line-height: 25px;
+    display: inline-block;
+}

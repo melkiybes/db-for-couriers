@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Визуальная база курьерских данных</title>
+
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no initial-scale=1, maximum-scale=1"
+    />
+    <link rel="stylesheet" href="css/easy.css">
+    <link rel="stylesheet" href="css/leaflet.css" />
+    <link rel="stylesheet" href="css/popupMod.css">
+    <link rel="stylesheet" href="css/Control.Card.css" />
+    <link href="https://cdn.jsdelivr.net/npm/suggestions-jquery@19.8.0/dist/css/suggestions.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/search.css">
+    
+    <script src="js/console.js"></script>
+	<script src="js/jquery-3.4.1.min.js"></script>
+    <script src="https://unpkg.com/leaflet@latest/dist/leaflet-src.js"></script>
+    <script src="js/popupMod.js" type="text/javascript"></script>
+	<script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@19.8.0/dist/js/jquery.suggestions.js"></script>
+	<script src='js/autosize.js'></script>
+	<script src="js/modal.js"></script>
+	<script src="js/jquery.mask.js"></script>
+    <script src="js/export.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"></script>
+	<script src="js/Control.Card.js"></script> 
+    
+    <style type="text/css">
+      body {
+            margin: 0;
+        }
+      #map {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+  <template id="card_template">
+<table class="card">
+<tr class="card company-string">
+	<td rowspan="1" class="card card-left company">Компания</td>
+	<td class="card card-right company"><textarea class="company" rows="1" placeholder='Поставщик рогов и копыт'></textarea></td>
+</tr>
+<tr class="card jr-string">
+	<td rowspan="1" class="card card-left jr">Юр. лицо</td>
+	<td class="card card-right jr"><textarea class='jr' rows="1" placeholder="ООО «Рога и Копыта»"></textarea></td>
+	<td class="plus-minus"><img class="plus" src="imgs/plus.svg"/></td>
+</tr>
+<tr class="card address-string">
+	<td rowspan="1" class="card card-left address">Адрес</td>
+	<td class="card card-right address"><input class="address" placeholder="Москва, 3-я улица Строителей, д. 25, кв. 12"/></td>
+	<td class="plus-minus"><img src="imgs/edit.svg"/></td>
+</tr>
+<tr class="card place-string">
+	<td rowspan="1" class="card card-left place">Откуда ехать</td>
+	<td class="card card-right place"><input class="place" placeholder="Станция метро или ж/д"/></td>
+	<td class="plus-minus"><img class="plus" src="imgs/plus.svg"/></td>
+</tr>
+<tr class="card contact-string">
+	<td rowspan="1" class="card card-left contact">Контактное лицо</td>
+	<td class="card card-right contact"><input class="contact contact-name" placeholder="Евгений Лукашин"/><br><input class="contact contact-number" placeholder="+7(012)345-67-89, доб. 12345"/></td>
+	<td class="plus-minus"><img src="imgs/plus.svg"/></td>
+</tr>   
+<tr class="card comment-string">
+	<td rowspan="1" class="card card-left comment">Комментарий</td>
+	<td class="card card-right comment"><textarea rows="2" class="comment" placeholder="Не путать с поставщиком в Петербурге, адреса совпадают!"></textarea></td>
+</tr>
+</table>
+</template>
+<template id="modal-buttons-template">
+<table border="0" class='modal-buttons'><tr><td id='add-modal'><img src="imgs/save.svg"/>Добавить адрес</td><td id='close-modal'><img src="imgs/minus.svg"/>Закрыть, не добавляя</td></tr></table>
+</template>
+  <div id="map"></div>
+  <div class="search">
+      <input type="text" placeholder="Поиск по базе данных" id="note-search"/>
+      <div class="searchBg"></div>
+      <div class="searchVars"></div>
+  </div>
+<script src="js/sample-geojson.js"></script>
+<script src="js/easy.js"></script>
+<script src="js/easy_form.js"></script>
+<script>
+ 	 var card_template = $("#card_template");
+	  var map = L.map('map').setView([55.7502833, 37.61983545], 11);
+      L.control.watermark({ position: 'topright' }).addTo(map);
+      L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { attribution: "Map &copy; <a href=\'http://openstreetmap.org\'>OpenStreetMap</a> | Tiles &copy; <a href='http://hot.openstreetmap.org\'>Humanitarian OSM Team</a> | Icons made by <a href='https://www.flaticon.com/authors/freepik' title='Freepik'>Freepik</a> from <a href='https://www.flaticon.com/' title='Flaticon'>www.flaticon.com</a>"
+      }).addTo(map);
+	
+	/*L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="https://carto.com/attribution">CARTO</a>'
+	}).addTo(map);*/
+</script> 
+<script src="js/form.js"></script>
+<script src="js/db.js"></script>
+<script src="js/search.js"></script>
+ </body>
+</html>
