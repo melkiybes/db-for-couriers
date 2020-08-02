@@ -57,7 +57,7 @@ L.Control.Card = L.Control.extend({
 });
 
 L.control.card = function(opts) {
-  return new L.Control.Watermark(opts);
+  return new L.Control.Card(opts);
 };
 
 function progressCallback ({totalRows, completedRows}) {
