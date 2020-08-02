@@ -21,29 +21,81 @@ html{
 .card textarea:-moz-placeholder{ 
     font-family:Nunito, sans-serif;
 }
-    .card td{padding: 0.3em;}
-.line1{background-image: url(../imgs/Moskwa_Metro_Line_1.svg);}
-.line2{background-image: url(../imgs/Moskwa_Metro_Line_2.svg);}
-.line3{background-image: url(../imgs/Moskwa_Metro_Line_3.svg);}
-.line4{background-image: url(../imgs/Moskwa_Metro_Line_4.svg);}
-.line5{background-image: url(../imgs/Moskwa_Metro_Line_5.svg);}
-.line6{background-image: url(../imgs/Moskwa_Metro_Line_6.svg);}
-.line7{background-image: url(../imgs/Moskwa_Metro_Line_7.svg);}
-.line8{background-image: url(../imgs/Moskwa_Metro_Line_8.svg);}
-.line8A{background-image: url(../imgs/Moskwa_Metro_Line_8A.svg);}
-.line9{background-image: url(../imgs/Moskwa_Metro_Line_9.svg);}
-.line10{background-image: url(../imgs/Moskwa_Metro_Line_10.svg);}
-.line11{background-image: url(../imgs/Moskwa_Metro_Line_11.svg);}
-.line11A{background-image: url(../imgs/Moskwa_Metro_Line_11A.svg);}
-.line12{background-image: url(../imgs/Moskwa_Metro_Line_12.svg);}
-.line14{background-image: url(../imgs/Moskwa_Metro_Line_14.svg);}
-.line15{background-image: url(../imgs/Moskwa_Metro_Line_15.svg);}
-.lineD1{background-image: url(../imgs/Moskwa_Metro_Line_D1.svg);}
-.lineD2{background-image: url(../imgs/Moskwa_Metro_Line_D2.svg);}
-.lineD3{background-image: url(../imgs/Moskwa_Metro_Line_D3.svg);}
-.lineD4{background-image: url(../imgs/Moskwa_Metro_Line_D4.svg);}
-.lineD5{background-image: url(../imgs/Moskwa_Metro_Line_D5.svg);}
-.rail{background-image: url(../imgs/train.svg);}
+.card td{padding: 0.3em;}
+.line1{background-image: url(../imgs/1.svg);}
+.line1-5{background-image: url(../imgs/1+5.svg);}
+.line1-11{background-image: url(../imgs/1+11.svg);}
+.line1-14{background-image: url(../imgs/1+14.svg);}
+
+.line2{background-image: url(../imgs/2.svg);}
+.line2-5{background-image: url(../imgs/2+5.svg);}
+.line2-11{background-image: url(../imgs/2+11.svg);}
+.line2-14{background-image: url(../imgs/2+14.svg);}
+.line2-D2{background-image: url(../imgs/2+D2.svg);}
+
+.line3{background-image: url(../imgs/3.svg);}
+.line3-4{background-image: url(../imgs/3+4.svg);}
+.line3-4-5{background-image: url(../imgs/3+4+5.svg);}
+.line3-4-11{background-image: url(../imgs/3+4+11.svg);}
+.line3-5{background-image: url(../imgs/3+5.svg);}
+.line3-5-D2{background-image: url(../imgs/3+5+D2.svg);}
+.line3-5-D2-D4{background-image: url(../imgs/3+5+D2+D4.svg);}
+.line3-8A{background-image: url(../imgs/3+8A.svg);}
+.line3-11{background-image: url(../imgs/3+11.svg);}
+.line3-11-D3{background-image: url(../imgs/3+11+D3.svg);}
+.line3-15{background-image: url(../imgs/3+15.svg);}
+.line3-D1{background-image: url(../imgs/3+D1.svg);}
+.line3-D2{background-image: url(../imgs/3+D2.svg);}
+
+.line4{background-image: url(../imgs/4.svg);}
+.line4-14{background-image: url(../imgs/4+14.svg);}
+
+.line5{background-image: url(../imgs/5.svg);}
+.line5-6{background-image: url(../imgs/5+6.svg);}
+.line5-7{background-image: url(../imgs/5+7.svg);}
+
+.line6{background-image: url(../imgs/6.svg);}
+.line6-7{background-image: url(../imgs/6+7.svg);}
+.line6-8{background-image: url(../imgs/6+8.svg);}
+.line6-11{background-image: url(../imgs/6+11.svg);}
+.line6-14{background-image: url(../imgs/6+14.svg);}
+.line6-D2{background-image: url(../imgs/6+D2.svg);}
+
+.line7{background-image: url(../imgs/7.svg);}
+.line7-11{background-image: url(../imgs/7+11.svg);}
+
+.line8{background-image: url(../imgs/8.svg);}
+.line8-14{background-image: url(../imgs/8+14.svg);}
+.line8-15{background-image: url(../imgs/8+15.svg);}
+
+.line8A{background-image: url(../imgs/8A.svg);}
+.line8A-9{background-image: url(../imgs/8A+9.svg);}
+.line8A-11{background-image: url(../imgs/8A+11.svg);}
+.line8A-11-14{background-image: url(../imgs/8A+11+14.svg);}
+
+.line9{background-image: url(../imgs/9.svg);}
+.line9-11-D1{background-image: url(../imgs/9+11+D1.svg);}
+
+.line10{background-image: url(../imgs/10.svg);}
+.line10-14{background-image: url(../imgs/10+14.svg);}
+
+.line11{background-image: url(../imgs/11.svg);}
+
+.line11A{background-image: url(../imgs/11A.svg);}
+
+.line12{background-image: url(../imgs/12.svg);}
+
+.line14{background-image: url(../imgs/14.svg);}
+.line14-15{background-image: url(../imgs/14+15.svg);}
+
+.line15{background-image: url(../imgs/15.svg);}
+
+.lineD1{background-image: url(../imgs/D1.svg);}
+.lineD2{background-image: url(../imgs/D2.svg);}
+.lineD3{background-image: url(../imgs/D3.svg);}
+.lineD4{background-image: url(../imgs/D4.svg);}
+.lineD5{background-image: url(../imgs/D5.svg);}
+
 .card .line{
     padding: 6px 12px 6px 28px;
     width: 100%;
