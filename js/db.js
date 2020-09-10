@@ -161,7 +161,7 @@ const displayNotes = (notes) => {
                 let _PClass;
                 if (_cardArray[0].match(/line.+/)){
                     _PClass = 'line ' + _cardArray[0].split(' ')[0];
-                    _cardArray[0] = _cardArray[0].split(' ')[1];
+                    _cardArray[0] = _cardArray[0].match(/(\s\S*)+/)[0];
                 } else {
                     _PClass = '';
                 }

@@ -116,7 +116,7 @@ _Suggest = $(".card input.address").suggestions({
         // запретить автоисправление по пробелу
 		triggerSelectOnSpace: false,
 		// запрещаем автоподстановку по Enter
-		triggerSelectOnEnter: false,
+		triggerSelectOnEnter: true,
 		// запретить автоисправление при выходе из текстового поля
 		triggerSelectOnBlur: false,
         // Вызывается, когда пользователь выбирает одну из подсказок

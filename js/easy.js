@@ -31,7 +31,7 @@ var EasyAutocomplete = (function(scope){
 				return element;
 			},
 
-			autocompleteOff: true,
+			autocompleteOff: false,
 
 			placeholder: false,
 
@@ -73,13 +73,13 @@ var EasyAutocomplete = (function(scope){
 				},
 
 				showAnimation: {
-					type: "normal", //normal|slide|fade
+					type: "slide", //normal|slide|fade
 					time: 400,
 					callback: function() {}
 				},
 
 				hideAnimation: {
-					type: "normal",
+					type: "slide",
 					time: 400,
 					callback: function() {}
 				},

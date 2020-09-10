@@ -6,7 +6,34 @@
  * @version 1.3.5
  * Copyright  License: 
  */
-
+@media screen and (orientation: portrait){
+    .easy-autocomplete input.line {
+        padding-left: 30px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 24px;
+    }
+    input{
+        font-size: 18px;
+    }
+}
+@media screen and (orientation: landscape){
+    .easy-autocomplete input.line:not([class*="-"]) {
+        padding-left: 36px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 30px;
+    }
+    .easy-autocomplete input.line[class*="-"] {
+        padding-left: 56px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 50px;
+    }
+    input{
+        font-size: 18px;
+    }
+}
 .easy-autocomplete {
   position: relative;
 }
@@ -22,10 +49,6 @@
     border: 0.5px solid black;
     float: none;
     font-family:Nunito, sans-serif;
-    padding-left: 30px;
-    background-position: 3px;
-    background-repeat: no-repeat;
-    background-size: 24px;
 }
 .easy-autocomplete input:hover, .easy-autocomplete input:focus {
   box-shadow: none;

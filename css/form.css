@@ -4,14 +4,41 @@ body{
     overflow: hidden;
 }
 @media screen and (orientation: portrait){
-html{
-    font-size: 12px;
-}
+    html{
+        font-size: 12px;
+    }
+    .card .line {
+        padding-left: 30px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 24px;
+    }
+    .leaflet-popup-content {
+        max-width: 250px;
+    }
 }
 @media screen and (orientation: landscape){
-html{
-    font-size: 14px;
-}
+    html{
+        font-size: 18px;
+    }
+    input{
+        font-size: 18px;
+    }
+    .leaflet-popup-content {
+        min-width: 400px;
+    }
+    .card .line:not([class*="-"]) {
+        padding-left: 36px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 30px;
+    }
+    .card .line[class*="-"] {
+        padding-left: 56px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 50px;
+    }
 }
 .card input::placeholder, 
 .card input:-moz-placeholder,
@@ -37,6 +64,7 @@ html{
 .line3-4{background-image: url(../imgs/3+4.svg);}
 .line3-4-5{background-image: url(../imgs/3+4+5.svg);}
 .line3-4-11{background-image: url(../imgs/3+4+11.svg);}
+.line3-4-D1{background-image: url(../imgs/3+4+D1.svg);}
 .line3-5{background-image: url(../imgs/3+5.svg);}
 .line3-5-D2{background-image: url(../imgs/3+5+D2.svg);}
 .line3-5-D2-D4{background-image: url(../imgs/3+5+D2+D4.svg);}
@@ -49,6 +77,7 @@ html{
 
 .line4{background-image: url(../imgs/4.svg);}
 .line4-14{background-image: url(../imgs/4+14.svg);}
+.line4-D1{background-image: url(../imgs/4+D1.svg);}
 
 .line5{background-image: url(../imgs/5.svg);}
 .line5-6{background-image: url(../imgs/5+6.svg);}
@@ -102,9 +131,6 @@ html{
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box; 
-    background-position: 1%;
-    background-repeat: no-repeat;
-    background-size: 24px;
 }
 .card textarea{
     font-family: Nunito, sans-serif;
