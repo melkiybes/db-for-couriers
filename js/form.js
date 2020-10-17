@@ -10,53 +10,68 @@ $("body").on("card.sizeChanged", function(){
 
 //обработка нажатия на плюс
 $("body").on("click", ".card img[src$='plus.svg']", function(e){
-    let T = $(e.target.parentNode.parentNode.firstElementChild);
-    let A;
-    if(T.prop("rowspan") == 1){
-        A = $(e.target.parentNode.parentNode);
-    } else {
-        A = $(e.target.parentNode.parentNode).nextUntil("[class$='string']").eq(-1);
+	//где создать новые строки и что при этом увеличить
+    let StringToAddAfter = $(e.target).closest("tr:not(.added)");
+    let LeftCellToWiden = $(e.target).closest("tr:not(.added)").children(".card-left").first();
+    //чтобы при создании новых почт и телефонов увеличивалась правильная ячейка
+    if (StringToAddAfter.hasClass("contact-mail-string") || StringToAddAfter.hasClass("contact-number-string")) {
+        LeftCellToWiden = $(e.target).closest("[class$='string']").prevAll(":not(.added):not(.contact-mail-string):not(.contact-number-string)").children(".card-left").first();
     }
-    let NewString = $('<tr></tr>').insertAfter(A);
-    NewString.prop("class", T.prop("class")+"-string").addClass("added").removeClass("card-left");
+    //чтобы новые строки добавлялись в конец "раздела", а не сразу после его начала
+    if ((LeftCellToWiden.prop("rowspan")>1 && LeftCellToWiden.is(":not(.contact)"))){
+        StringToAddAfter = $(e.target).closest("tr:not(.added)").nextUntil("tr:not(.added)").last();
+    } else if ((LeftCellToWiden.hasClass("contact"))){
+        StringToAddAfter = $(e.target).closest("tr").siblings(".comment-string").siblings().last();
+    } else if ($("#findID").length) {
+        
+    }
+    
+    //создание новой строки, ячеек в ней и присвоение необходимых классов
+    let NewString = $('<tr></tr>').insertAfter(StringToAddAfter);
+    NewString.prop("class", StringToAddAfter.prop("class")).addClass("added").removeClass("card-left");
     let NewStringLeftCell = $('<td></td>').appendTo(NewString);
-    NewStringLeftCell.prop("class", T.prop("class")).addClass("added card-right").removeClass("card-left");
+    NewStringLeftCell.prop("class", $(e.target).closest("tr:not(.added)").prop("class").replace('-string', '')).addClass("added card-right").removeClass("card-left");
     $('<td class="plus-minus"><img src="imgs/minus.svg"/></td>').appendTo(NewString);
+    
+    //заполнение добавленных строк, частные случаи
     if (NewStringLeftCell.hasClass("place")) {
         var P = $('<input class="place" placeholder="Станция метро или ж/д"/>').appendTo(NewStringLeftCell);
         P.trigger("myAdd");
-    } else if (NewStringLeftCell.hasClass("contact")){
-        var C = $('<input class="contact contact-name" placeholder="Евгений Лукашин"/><BR><input class="contact contact-number" placeholder="+7(012)345-67-89, доб. 12345"/>').appendTo(NewStringLeftCell);
-        C.eq(-1).mask('+7(000)000-00-00, доб. ZZZZZ', {
-            translation: {
-                'Z': { pattern: /[0-9]/, optional: true }
-            }
-        });
-        } else if (NewStringLeftCell.hasClass("jr")){
+    } else if (NewStringLeftCell.hasClass("contaсt-name")){
+    	var CName = $('<input class="contact contact-name" placeholder="Евгений Лукашин"/>').appendTo(NewStringLeftCell);
+    } else if (NewStringLeftCell.hasClass("contact-number")){
+        var CNumber = $('<input class="contact contact-number" placeholder="+7(012)345-67-89, доб. 12345"/>').appendTo(NewStringLeftCell);
+        CNumber.eq(-1).mask('+7(000)000-00-00, доб. ZZZZZ', { translation: { 'Z': { pattern: /[0-9]/, optional: true } } });
+	} else if (NewStringLeftCell.hasClass("contact-mail")){
+        var CMail = $('<input class="contact contact-mail" placeholder="contact@contact.com"/>').appendTo(NewStringLeftCell);
+	} else if (NewStringLeftCell.hasClass("jr")){
         var _Text = $('<textarea class="jr" rows="1" placeholder="ООО «Рога и Копыта»"></textarea>').appendTo(NewStringLeftCell);
         autosize(_Text);
     }
+    
     //костыль против превращения в строку
-    T.prop("rowspan", T.prop("rowspan")-1+2);
+    LeftCellToWiden.prop("rowspan", LeftCellToWiden.prop("rowspan")-1+2);
     $("body").trigger("card.sizeChanged");
     //отладка
     //let E = NewString.children().first().children().first();
     //E.text($(".card").find(".place").children().first().prop("class"));
-	});
+});
 
 //обработка нажатия на минус
-	$("body").on("click", ".card img[src$='minus.svg']", function(e){
+$("body").on("click", ".card img[src$='minus.svg']", function(e){
 	 //if(confirm("Вы уверены? Удалить?")){
-		let T = $(e.target.parentNode.parentNode).prevAll('[class$="string"]').eq(0).children("[rowspan]");
+        
+		let T = $(e.target.parentNode.parentNode).prevAll('[class$="string"]:not(.added):not(.contact-mail-string):not(.contact-number-string)').eq(0).children("[rowspan]");
+        
 		T.prop("rowspan", T.prop("rowspan") -1);
 		$(e.target.parentNode.parentNode).remove();
 	//}
 	$("body").trigger("card.sizeChanged");
 });
 	
-	var areCoordsStrict = false;
-	//ввод координат вручную, верстка
-	$("body").on("click", ".card img[src$='edit.svg']", function(e){
+var areCoordsStrict = false;
+//ввод координат вручную, верстка
+$("body").on("click", ".card img[src$='edit.svg']", function(e){
 		let T = $(e.target.parentNode.parentNode.firstElementChild);
 		let C = $(e.target.parentNode.previousElementSibling.firstElementChild);
 		let N;
@@ -80,7 +95,7 @@ $("body").on("click", ".card img[src$='plus.svg']", function(e){
 			$(this).trigger('card.StartSuggest');
 		}
 		$("body").trigger("card.sizeChanged");
-	});
+});
 	
 //маска для ввода телефона
 $('.card .contact-number').mask('+7(000)000-00-00, доб. ZZZZZ', {

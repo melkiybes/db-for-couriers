@@ -7,11 +7,20 @@ body{
     html{
         font-size: 12px;
     }
-    .card .line {
-        padding-left: 30px;
+    input{
+        font-size: 12px;
+    }
+    .card .line:not([class*="-"]) {
+        padding-left: 28px;
         background-position: 3px;
         background-repeat: no-repeat;
-        background-size: 24px;
+        background-size: 22px;
+    }
+    .card .line[class*="-"] {
+        padding-left: 40px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 34px;
     }
     .leaflet-popup-content {
         max-width: 250px;
@@ -115,6 +124,7 @@ body{
 .line12{background-image: url(../imgs/12.svg);}
 
 .line14{background-image: url(../imgs/14.svg);}
+.line14-D2{background-image: url(../imgs/14+D2.svg);}
 .line14-15{background-image: url(../imgs/14+15.svg);}
 
 .line15{background-image: url(../imgs/15.svg);}
@@ -148,6 +158,13 @@ body{
     border-collapse: collapse; 
     vertical-align: middle;
     border: none;
+    width: 100%;
+    width: -moz-available;          /* For Mozzila */
+    width: -webkit-fill-available;  /* For Chrome */
+    width: stretch;                 /* Unprefixed */
+}
+.card tr{
+    border: 1px solid rgba(0,0,0,0.3);
 }
 .card input, .card textarea{
 	font-family:Nunito, sans-serif;
@@ -163,10 +180,6 @@ body{
 .card td.card-right{
     box-sizing: border-box;
     width: 100%;
-}
-.card .contact-name{
-	margin-bottom: 0;
-	border-bottom: none;
 }
 .card td.plus-minus img{
 	user-select: none;
@@ -196,31 +209,37 @@ img[src$='save.svg'], img[src$='edit.svg'], img[src$='export.svg'], img[src$='im
 .card .suggestions-promo{
 	visibility: hidden;
 }
+
+.card input.place{
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
 /*для модальных окон*/
 #blockscreen, #modalwindow {
-        overflow-x: hidden;
-        overflow-y: auto;
-        position: fixed;
-      }
-      #blockscreen {
-        background: rgba(0, 0, 0, .5);
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 1051;
-      }
-      #modalwindow {
-        z-index: 1052;
-        background: #fff;
-        padding: 5px;
-        margin: 5vw;
-        border-radius: 5px;
-        border: 1px solid #a1a1a1;
-        box-shadow: 0 0 10px #444;
-      }
-      .modal{
-        display: inline-block;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: fixed;
+}
+#blockscreen {
+    background: rgba(0, 0, 0, .5);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1051;
+}
+#modalwindow {
+    z-index: 1052;
+    background: #fff;
+    padding: 5px;
+    margin: 5vw;
+    border-radius: 5px;
+    border: 1px solid #a1a1a1;
+    box-shadow: 0 0 10px #444;
+}
+.modal{
+    display: inline-block;
 }
 .modal-buttons{
 	width: 100%;

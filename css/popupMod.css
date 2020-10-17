@@ -3,24 +3,36 @@
    display: flex;
    justify-content: space-between;
    padding: 13px 19px;
+   padding-top: 0px;
+   width: 100%;
 }
-
+.leaflet-popup-edit-screen{
+    margin: 40px 19px 4px 19px;
+}
+a.leaflet-popup-copy-button{
+    position: absolute;
+    top:0; left:0;
+    padding: 8px 19px;
+}
 a.leaflet-popup-remove-button,
 a.leaflet-popup-edit-button,
 a.leaflet-popup-input-cancel,
-a.leaflet-popup-input-save{
+a.leaflet-popup-input-save,
+a.leaflet-popup-copy-button{
    border-bottom: none;
    text-decoration: none;
 }
 a.leaflet-popup-edit-button,
-a.leaflet-popup-input-save{
+a.leaflet-popup-input-save,
+a.leaflet-popup-copy-button{
    margin-right: auto;
    text-align: left;
 }
 a.leaflet-popup-remove-button:hover,
 a.leaflet-popup-edit-button:hover,
 a.leaflet-popup-input-cancel:hover,
-a.leaflet-popup-input-save:hover{
+a.leaflet-popup-input-save:hover,
+a.leaflet-popup-copy-button:hover{
    color: black;
    text-decoration: underline;
    cursor: pointer;
@@ -48,7 +60,8 @@ a.leaflet-popup-input-save:hover{
 }
 
 a.leaflet-popup-remove-button img,
-a.leaflet-popup-edit-button img{
+a.leaflet-popup-edit-button img,
+a.leaflet-popup-copy-button img{
     max-height: 16px;
     margin: 0px 5px 0px 0px;
     vertical-align: middle;
@@ -56,6 +69,7 @@ a.leaflet-popup-edit-button img{
 
 a.leaflet-popup-remove-button span,
 a.leaflet-popup-edit-button span,
+a.leaflet-popup-copy-button span,
 a.leaflet-popup-input-cancel,
 a.leaflet-popup-input-save{
     font-weight: bold;
@@ -89,6 +103,34 @@ a.leaflet-popup-input-save{
     background: black;
     transition: all ease 0.3s;
 }
+
+.copy-icon{
+    color: black;
+    padding: 0 0 0 21px;
+    background-image: url(../imgs/copy-icon.svg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: 16px;
+}
+
+.copy-icon::before{
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 5px;
+    width: 160px;
+    height: 20px;
+    background: rgb(0, 120, 168);
+    mix-blend-mode: screen;
+    transition: all ease 0.3s;
+}
+
+.copy-icon:hover::before{
+    background: black;
+    transition: all ease 0.3s;
+}
+
 .remove-icon{
     color: black;
     padding: 0 0 0 21px;
@@ -114,4 +156,27 @@ a.leaflet-popup-input-save{
 .remove-icon:hover::before{
     background: black;
     transition: all ease 0.3s;
+}
+
+button.remove-card-btn{
+    background-color:#ce1414;
+	border-radius:28px;
+    border: solid 1px white;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	padding:8px 31px;
+	text-decoration:none;
+}
+button.leave-card-btn{
+    background-color:rgb(0, 120, 168);
+	border-radius:28px;
+    border: none;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-size:17px;
+	padding:8px 31px;
+	text-decoration:none;
 }

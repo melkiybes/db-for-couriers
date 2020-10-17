@@ -73,14 +73,14 @@ var EasyAutocomplete = (function(scope){
 				},
 
 				showAnimation: {
-					type: "slide", //normal|slide|fade
-					time: 400,
+					type: "fade", //normal|slide|fade
+					time: 250,
 					callback: function() {}
 				},
 
 				hideAnimation: {
-					type: "slide",
-					time: 400,
+					type: "fade",
+					time: 250,
 					callback: function() {}
 				},
 

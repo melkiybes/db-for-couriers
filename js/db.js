@@ -1,6 +1,22 @@
 let db;
 let dbReq = indexedDB.open('myDatabase', 1);
-
+toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-center",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "1000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
 dbReq.onupgradeneeded = (event) => {
   db = event.target.result;
   // Создадим хранилище объектов notes или получим его, если оно уже существует.
@@ -46,6 +62,7 @@ const addStickyNote = (db, object) => {
 
 //получение-отображение записей, при обновлении данных вызвать именно ее
 const getAndDisplayNotes = (db) => {
+  $(".leaflet-marker-pane, .leaflet-shadow-pane").html("");
   let tx = db.transaction(['notes'], 'readonly');
   let store = tx.objectStore('notes');
 
@@ -107,6 +124,39 @@ const displayNotes = (notes) => {
     let _cardDiv = document.createElement("div");
     _cardDiv.append(document.getElementById('card_template').content.cloneNode(true));
     $(_cardDiv).children(".card").eq(0).attr("data-id", note.timestamp);
+    
+    if (note.company == ""){
+    	$(_cardDiv).find(".company-string").eq(0).hide();
+    }
+    if (note.jr.jr1 == ""){
+    	$(_cardDiv).find(".jr-string").eq(0).hide();
+    }
+    if (note.address == ""){
+    	$(_cardDiv).find(".address-string").eq(0).hide();
+    }
+    if (note.place.place1 == ""){
+    	$(_cardDiv).find(".place-string").eq(0).hide();
+    }
+    if (note.contact.contact1 == ""){
+    	$(_cardDiv).find(".contact-name-string").eq(0).hide();
+        $(_cardDiv).find("td.card-left.contact").prop('rowspan', $(_cardDiv).find("td.card-left.contact").prop('rowspan') - 1);
+    }
+    if (note.contact.contact2 == ""){
+    	$(_cardDiv).find(".contact-number-string").eq(0).hide();
+        $(_cardDiv).find("td.card-left.contact").prop('rowspan', $(_cardDiv).find("td.card-left.contact").prop('rowspan') - 1);
+    }
+    if (note.contact.contact3 == ""){
+    	$(_cardDiv).find(".contact-mail-string").eq(0).hide();
+        $(_cardDiv).find("td.card-left.contact").prop('rowspan', $(_cardDiv).find("td.card-left.contact").prop('rowspan') - 1);
+    }
+    if (note.contact.contact1 == "" && note.contact.contact2 == "" && note.contact.contact3 == ""){
+        $(_cardDiv).find("td.card-left.contact").eq(0).hide();
+        $(_cardDiv).find(".contaсt-name-string").eq(0).hide();
+    }
+    if (note.comment == ""){
+    	$(_cardDiv).find(".comment-string").eq(0).hide();
+    }
+    
     //просчитываем дополнительно добавленное
     let _JNum = 0;   
     let _PNum = 0;
@@ -125,7 +175,7 @@ const displayNotes = (notes) => {
             let A = $(_cardDiv).children().find("textarea.jr").eq(i);
             let T = A.parents("table").find("tr[class$='jr-string']");
             let NewString = $('<tr class="card jr-string added"></tr>').insertAfter(T);
-            let NewStringLeftCell = $('<td></td>').appendTo(NewString);
+            let NewStringLeftCell = $('<td class="card card-right jr added"></td>').appendTo(NewString);
             $('<td class="plus-minus"><img src="imgs/minus.svg"/></td>').appendTo(NewString);
             let _Text = $('<textarea class="jr" rows="1" placeholder="ООО «Рога и Копыта»"></textarea>').appendTo(NewStringLeftCell);
             T.children().eq(0).prop("rowspan", T.children().eq(0).prop("rowspan")-1+2);
@@ -134,23 +184,30 @@ const displayNotes = (notes) => {
     if (_PNum > 1){
         for (let i = 0; i<(_PNum-1); i++){
             let A = $(_cardDiv).children().find("input.place").eq(i);
-            let T = A.parents("table").find("tr[class$='place-string']");
+            let T = A.parents("table").find("tr.place-string");
             let NewString = $('<tr class="card place-string added"></tr>').insertAfter(T);
-            let NewStringLeftCell = $('<td></td>').appendTo(NewString);
+            let NewStringLeftCell = $('<td class="card card-right place added"></td>').appendTo(NewString);
             $('<td class="plus-minus"><img src="imgs/minus.svg"/></td>').appendTo(NewString);
             var P = $('<input class="place" placeholder="Станция метро или ж/д"/>').appendTo(NewStringLeftCell);
             T.children().eq(0).prop("rowspan", T.children().eq(0).prop("rowspan")-1+2);
         }
     }
-    if (_CNum > 2){
-        for (let i = 0; i<(_CNum-2); i+=2){
+    if (_CNum > 3){
+        for (let i = 0; i<(_CNum-3); i++){
             let A = $(_cardDiv).children().find("input.contact").eq(i);
-            let T = A.parents("table").find("tr[class$='contact-string']");
-            let NewString = $('<tr class="card contact-string added"></tr>').insertAfter(T);
-            let NewStringLeftCell = $('<td></td>').appendTo(NewString);
+            let T = A.parents("table").find("tr[class*='contact']").last();
+            //console.log(A.parents("table").find("tr[class*='name']").eq(0).children(".card-left").eq(0));
+            let NewString = $('<tr class="card contact-' + note.contact["contact" + parseInt(i+4)].split(' ')[0].trim() + '-string added"></tr>').insertAfter(T);
+            let NewStringLeftCell = $('<td class="card card-right contact-' + note.contact["contact" + parseInt(i+4)].replace(/(\s\S*)+/g, "") + ' added"></td>').appendTo(NewString);
             $('<td class="plus-minus"><img src="imgs/minus.svg"/></td>').appendTo(NewString);
-            let C = $('<input class="contact contact-name" placeholder="Евгений Лукашин"/><BR><input class="contact contact-number" placeholder="+7(012)345-67-89, доб. 12345"/>').appendTo(NewStringLeftCell);
-            T.children().eq(0).prop("rowspan", T.children().eq(0).prop("rowspan")-1+2);
+            if (note.contact["contact" + parseInt(i+4)].split(' ')[0].trim() == "name") {
+                let C = $('<input class="contact contact-name" placeholder="Евгений Лукашин"/>').appendTo(NewStringLeftCell);
+            } else if (note.contact["contact" + parseInt(i+4)].split(' ')[0].trim() == "number") {
+                let C = $('<input class="contact contact-number" placeholder="+7(012)345-67-89, доб. 12345"/>').appendTo(NewStringLeftCell);
+            } else if (note.contact["contact" + parseInt(i+4)].split(' ')[0].trim() == "mail") {
+                let C = $('<input class="contact contact-mail" placeholder="contact@contact.com" />').appendTo(NewStringLeftCell);
+            }
+            A.parents("table").find("tr[class*='name']").eq(0).children(".card-left").eq(0).prop("rowspan", A.parents("table").find("tr[class*='name']").eq(0).children(".card-left").eq(0).prop("rowspan")-1+2);
         }
     }
     //console.log(note + ': JR = '+_JNum + ', PLACE = '+_PNum+', CONTACT = '+_CNum);
@@ -161,6 +218,9 @@ const displayNotes = (notes) => {
                 let _PClass;
                 if (_cardArray[0].match(/line.+/)){
                     _PClass = 'line ' + _cardArray[0].split(' ')[0];
+                    _cardArray[0] = _cardArray[0].match(/(\s\S*)+/)[0];
+                } else if (_cardArray[0].match(/(name|number|mail).+/)) {
+                    _PClass = '';
                     _cardArray[0] = _cardArray[0].match(/(\s\S*)+/)[0];
                 } else {
                     _PClass = '';
@@ -178,7 +238,7 @@ const displayNotes = (notes) => {
     try {
         let _cardP = L.popup().setContent(_cardDiv.innerHTML);
         let marker = L.marker(note.coords);
-        marker.bindPopup(_cardP, {removable: true, editable: true});
+        marker.bindPopup(_cardP, {removable: true, editable: true, copyable: true});
         marker.addTo(map);
         $(marker._icon).attr("data-id", note.timestamp);
         _cardArray = [];
@@ -215,6 +275,9 @@ const deleteNote = (event) => {
     deleteRequest.onsuccess = (event) => {
       // обрабатываем успех нашего запроса на удаление
       console.log('Delete request successful');
+      var eventUpdate = new Event('click');
+      setTimeout(() => {document.getElementsByClassName("leaflet-popup-close-button")[0].dispatchEvent(eventUpdate); getAndDisplayNotes(db); }, 350);
+      toastr["info"]('<div>Элемент успешно удалён</div>');
     }
   }
 }
@@ -239,6 +302,7 @@ const updateNote = (event) => {
   // получаем ключ записи
   const req = index.getKey(valueTimestamp);
   const object = getAnObject($(event.target).parents(".leaflet-popup-edit-screen").find("table.card").eq(0));
+  //console.log(object);
   req.onsuccess = (event) => {  
     let request = store.get(req.result);
     request.onerror = function(event) {};
@@ -251,7 +315,9 @@ const updateNote = (event) => {
     updateRequest.onsuccess = (event) => {
       // обрабатываем успех нашего запроса
       //console.log(updateRequest.result);
-      getAndDisplayNotes(db);
+      toastr["info"]('<div>Элемент успешно изменён</div>');
+      var eventUpdate = new Event('click');
+      setTimeout(() => {getAndDisplayNotes(db);  document.getElementsByClassName("leaflet-popup-close-button")[0].dispatchEvent(eventUpdate);}, 350);
     }
   }
 }
@@ -278,7 +344,8 @@ const getAnObject = (_card) => {
                 _P_Obj["place" + _PNum] = lastClass($(this)) + " " + $(this).val();
             } else if ($(this).hasClass("contact")) {            
                 this == _C1 ? _CNum = 1 : _CNum++;
-                _C_Obj["contact" + _CNum] = $(this).val().toString();
+                _C_Obj["contact" + _CNum] = $(this).prop("class").replace("contact contact-",'')  + " " + $(this).val().toString();
+                if($(this).val().toString() == "") _C_Obj["contact" + _CNum] = "" ;
             }
             //$(this).prop("readonly", "readonly");
             //$(this).off();
@@ -295,7 +362,6 @@ const getAnObject = (_card) => {
         }
         if ($(_C1).val() == ''){
             _C_Obj.contact1 = '';
-            _C_Obj.contact2 = '';
             _O.contact = _C_Obj;
         } else {
             _O.contact = _C_Obj;
@@ -317,6 +383,7 @@ const getAnObject = (_card) => {
 
 $("body").on("click", ".modal-buttons #add-modal", function(e){
     let _O = getAnObject($(e.target).parents("table").siblings()[0]);
+    console.log(_O);
     addStickyNote(db, _O);
     modalWindow.close();
 });
@@ -334,9 +401,10 @@ $("body").on("click", ".modal-buttons #add-modal", function(e){
         
     },
     contact: {
-        contact1: "name1",
-        contact2: "phone1",
-        contact3: "name2",
+        contact1: "name Zaz",
+        contact2: "number +7",
+        contact3: "mail za",
+        contact4: "mail za2",...
     },
     comment: "",
     coords: {

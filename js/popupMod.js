@@ -1,7 +1,8 @@
 //  Adding new options to the default options of a popup
 L.Popup.mergeOptions({
-   removable: false,
-   editable: false
+    removable: false,
+    editable: false,
+    copyable: false
 })
 
 // Modifying the popup mechanics
@@ -39,50 +40,91 @@ L.Popup.include({
 
       //  ---------------    My additions  --------------------------- //
 
-      if (this.options.removable && !this.options.editable){
-         var userActionButtons = this._userActionButtons = L.DomUtil.create('div', prefix + '-useraction-buttons', wrapper);
-         var removeButton = this._removeButton = L.DomUtil.create('a', prefix + '-remove-button', userActionButtons);
-         removeButton.href = '#close';
-         removeButton.innerHTML = '<div class="remove-icon"><img src="/imgs/remove-icon.svg"/><span>Удалить</span></div>';
-         this.options.minWidth = 110;
-
-         L.DomEvent.on(removeButton, 'click', this._onRemoveButtonClick, this);
-      }
-
-      if (this.options.editable && !this.options.removable){
-         var userActionButtons = this._userActionButtons = L.DomUtil.create('div', prefix + '-useraction-buttons', wrapper);
-         var editButton = this._editButton = L.DomUtil.create('a', prefix + '-edit-button', userActionButtons);
-         editButton.href = '#edit';
-         editButton.innerHTML = '<div class="edit-icon"><img src="/imgs/edit-icon.svg"/><span>Изменить</span></div>';
-
-         L.DomEvent.on(editButton, 'click', this._onEditButtonClick, this);
-      }
-
-      if (this.options.editable && this.options.removable){
+      if (this.options.editable && this.options.removable && this.options.copyable){
          var userActionButtons = this._userActionButtons = L.DomUtil.create('div', prefix + '-useraction-buttons', wrapper);
          var editButton = this._editButton = L.DomUtil.create('a', prefix + '-edit-button', userActionButtons);
          editButton.href = '#edit';
          editButton.innerHTML = '<div class="edit-icon"><span>Изменить</span></div>';
+          
          var removeButton = this._removeButton = L.DomUtil.create('a', prefix + '-remove-button', userActionButtons);
          removeButton.href = '#close';
          removeButton.innerHTML = '<div class="remove-icon"><span>Удалить</span></div>';
+          
+         var copyButton = this._removeButton = L.DomUtil.create('a', prefix + '-copy-button', userActionButtons);
+         copyButton.href = '#close';
+         copyButton.innerHTML = '<div class="copy-icon"><span>Копировать</span></div>';
          this.options.minWidth = 160;
 
          L.DomEvent.on(removeButton, 'click', this._onRemoveButtonClick, this);
          L.DomEvent.on(editButton, 'click', this._onEditButtonClick, this);
+         L.DomEvent.on(copyButton, 'click', this._onCopyButtonClick, this);
       }
    },
 
    _onRemoveButtonClick: function (e) {
-       if(confirm('Вы уверены? Удалить?'))
-       {
-           deleteNote(e);
-           this._source.remove();
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": false,
+      "positionClass": "toast-bottom-center",
+      "preventDuplicates": true,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "0",
+      "timeOut": "0",
+      "extendedTimeOut": "0",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+       toastr["error"]('<div>Вы уверены? Удалить?<button class="remove-card-btn">Да</button><button class="leave-card-btn">Нет</button></div>');
+       var _RemoveEvent = e;
+       $("body").on("click", "button.remove-card-btn", function(e){
+           //console.log(_RemoveEvent);
+           deleteNote(_RemoveEvent);
+           L.DomEvent.stop(_RemoveEvent);
+           //this._source.remove();
            L.DomEvent.stop(e);
-       }
+       });
    },
+    
+    _onCopyButtonClick: function (e) {
+        //console.log($(e.target).closest(".leaflet-popup-useraction-buttons").siblings(".leaflet-popup-content"));
+        try {
+            var $temp = $("<textarea>");
+            $("body").append($temp);
 
-   _onEditButtonClick: function (e) {
+            var $temp_value = "";
+            $(e.target).closest(".leaflet-popup-useraction-buttons").siblings(".leaflet-popup-content").find("table.card td:not(:hidden)").each(function(index, el){
+                //console.log($("body").find("table.card td:not(:hidden)").last()[0] == el);
+                $temp_value += $(el).text().trim();
+                if ($(el).hasClass("card-left")){
+                    $temp_value += ": ";
+                } else if ($("body").find("table.card td:not(:hidden)").last()[0] != el && !$("body").find("table.card td:not(:hidden)").eq(index+1).hasClass("card-left") && !$("body").find("table.card td:not(:hidden)").eq(index+1).hasClass("contact-name")) {
+                    $temp_value += ", ";
+                }
+                
+                if ($("body").find("table.card td:not(:hidden)").eq(index+1).hasClass("card-left") || $("body").find("table.card td:not(:hidden)").eq(index+1).hasClass("contact-name")){
+                    $temp_value += "\n";
+                }
+            });
+            $temp.val($temp_value);
+            $temp.trigger("select");
+            document.execCommand("copy");
+            console.log($temp_value);
+            $temp.remove();
+            toastr["info"]('<div>Скопировано в буфер обмена</div>');
+        } catch (e) {
+            toastr["error"]('<div>Произошла ошибка!<br>Пожалуйста, попробуйте ещё раз</div>');
+            console.log(e.name + ": " + e.message);
+        }
+        
+    },
+ //
+    
+    _onEditButtonClick: function (e) {
       //Needs to be defined first to capture width before changes are applied
       var inputFieldWidth = this._inputFieldWidth = this._container.offsetWidth - 2*19;
 
@@ -96,7 +138,6 @@ L.Popup.include({
 
       //  -----------  Making the input field grow till max width ------- //
       editScreen.style.width = inputFieldWidth + 'px';
-      editScreen.style.margin = "19px 19px 4px 19px";
       var inputFieldDiv = L.DomUtil.get(this._inputField);
 
       // create invisible div to measure the text width in pixels
@@ -110,19 +151,22 @@ L.Popup.include({
       cancelButton.href = '#cancel';
       cancelButton.innerHTML = 'Не сохранять';
 
-       let _card = $(editScreen).find("table.card");
-      _card.find(".plus-minus").removeAttr("hidden");
-      _card.find("span").each(function(index){
-         $(this).replaceWith(function(){
-             let _i;
-             if($(this.parentNode).next().hasClass("plus-minus") && !$(this).hasClass("jr")){
-                  _i = '<input class="' + $.trim($(this).attr("class")) + '" value="' + $.trim($(this).text()) + '"/>';
-             } else {
-                 _i = '<textarea rows="1" class="' + $.trim($(this).attr("class")) + '">' + $.trim($(this).text()) + '</textarea>';
-             }
-             return _i;
-         });
-      });
+        let _card = $(editScreen).find("table.card");
+        _card.find(":hidden").show();
+        if (_card.find("td.card-left.contact").prop("rowspan")<3) {
+            _card.find("td.card-left.contact").prop("rowspan", 3);
+        }
+        _card.find("span").each(function(index){
+            $(this).replaceWith(function(){
+                    let _i;
+                    if($(this.parentNode).next().hasClass("plus-minus") && !$(this).hasClass("jr")){
+                        _i = '<input class="' + $.trim($(this).attr("class")) + '" value="' + $.trim($(this).text()) + '"/>';
+                    } else {
+                        _i = '<textarea rows="1" class="' + $.trim($(this).attr("class")) + '">' + $.trim($(this).text()) + '</textarea>';
+                }
+                return _i;
+            });
+        });
         _card.find("textarea.comment").prop("rows", "2");
         _card.find("textarea.company").prop("placeholder", "Поставщик рогов и копыт");
         _card.find("textarea.jr").prop("placeholder", 'ООО «Рога и Копыта»');
@@ -130,21 +174,22 @@ L.Popup.include({
         _card.find("input.place").prop("placeholder", "Станция метро или ж/д");
         _card.find("input.contact-name").prop("placeholder", "Евгений Лукашин");
         _card.find("input.contact-number").prop("placeholder", "+7(012)345-67-89, доб. 12345");
+        _card.find("input.contact-mail").prop("placeholder", "contact@contact.com");
         _card.find("textarea.comment").prop("placeholder", "Не путать с поставщиком в Петербурге, адреса совпадают!");
         $("body").trigger("card.cloned");
-        
+
         L.DomEvent.on(cancelButton, 'click', this._onCancelButtonClick, this);
         L.DomEvent.on(saveButton, 'click', this._onSaveButtonClick, this);
-       
-  let valueTimestamp = parseInt(_card.attr("data-id"));
-  let tx = db.transaction(['notes'], 'readonly');
-  // описываем обработчики на завершение транзакции
-  tx.oncomplete = (event) => {
+
+    let valueTimestamp = parseInt(_card.attr("data-id"));
+    let tx = db.transaction(['notes'], 'readonly');
+    // описываем обработчики на завершение транзакции
+    tx.oncomplete = (event) => {
     //console.log('Transaction completed.')
-  };
-  tx.onerror = function(event) {
+    };
+    tx.onerror = function(event) {
     alert('error in cursor request ' + event.target.errorCode);
-  };
+    };
   // создаем хранилище объектов по транзакции
   let store = tx.objectStore('notes');
   let index = store.index("timestamp");
@@ -163,14 +208,14 @@ L.Popup.include({
    },
 
 
-   _onCancelButtonClick: function (e) {
-      L.DomUtil.remove(this._editScreen);
-      this._contentNode.style.display = "block";
-      this._userActionButtons.style.display = "flex";
+    _onCancelButtonClick: function (e) {
+        L.DomUtil.remove(this._editScreen);
+        this._contentNode.style.display = "block";
+        this._userActionButtons.style.display = "flex";
 
-      this.update();
-      L.DomEvent.stop(e);
-   },
+        this.update();
+        L.DomEvent.stop(e);
+    },
 
    _onSaveButtonClick: function (e) {
        try {
@@ -197,7 +242,8 @@ L.Popup.include({
 
       this.update();
       L.DomEvent.stop(e);
-      setTimeout(() => location.reload(), 150);
+      //setTimeout(() => location.reload(), 350);
+      //setTimeout(() => getAndDisplayNotes(db), 350);
       //  ---------------------End my additions --------------------------------------- //
 
 

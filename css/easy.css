@@ -7,14 +7,20 @@
  * Copyright  License: 
  */
 @media screen and (orientation: portrait){
-    .easy-autocomplete input.line {
-        padding-left: 30px;
+    .easy-autocomplete input .line[class*="-"] {
+        padding-left: 40px;
         background-position: 3px;
         background-repeat: no-repeat;
-        background-size: 24px;
+        background-size: 34px;
+    }
+    .easy-autocomplete input.line:not([class*="-"])  {
+        padding-left: 28px;
+        background-position: 3px;
+        background-repeat: no-repeat;
+        background-size: 22px;
     }
     input{
-        font-size: 18px;
+        font-size: 12px;
     }
 }
 @media screen and (orientation: landscape){
