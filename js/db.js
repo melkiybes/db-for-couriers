@@ -226,7 +226,7 @@ const displayNotes = (notes) => {
                     _PClass = '';
                 }
                 //console.log("_cardArray[0]: " + _cardArray[0].toString());
-                return '<span class="' + $(this).attr("class") + ' ' + _PClass + '">' + _cardArray.shift()+'</span>';
+                return '<span class="' + $(this).attr("class") + ' ' + _PClass + '">' + _cardArray.shift().replaceAll("\n","<br>")+'</span>';
             });
         } catch (e) {
             console.log("Error: " + e);
